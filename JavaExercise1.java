@@ -1,4 +1,4 @@
-public class DemoOperator {
+public class JavaExercise1 {
   public static void main(String[] args) {
     // + - * /
 
