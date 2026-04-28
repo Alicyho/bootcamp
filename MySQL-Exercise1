@@ -1,0 +1,104 @@
+select * from sys_config;
+
+create database bootcamp_2603;
+use bootcamp_2603;
+show databases;
+	
+CREATE Table Employees (
+	Employee_ID integer PRIMARY KEY,-- job_history
+    first_name Varchar(20),
+    last_name varchar(25),
+    email varchar(25),
+    Phone_number varchar(20),
+    Hire_date date,
+    Salary decimal,
+    commission_pct decimal,
+    manager_id integer, -- to deparments, 
+	Job_ID VARCHAR(10) NOT NULL,
+    FOREIGN KEY (Jobs_Job_ID) REFERENCES Jobs (Job_ID),
+    Department_id INTEGER NOT NULL,
+    FOREIGN KEY (Department_id) REFERENCES Department(Department_id)
+	);
+    
+    
+    
+    -- jobs
+	CREATE Table Jobs (
+    Job_ID VARCHAR(10) PRIMARY KEY,
+    Job_Title varchar(35),
+    Min_Salary integer,
+    Max_Salary integer
+    
+    );
+    
+    -- job_grades
+    CREATE Table Job_grades(
+    Grade_level Varchar(20) PRIMARY KEY,
+    Lowest_Sal integer,
+    Highest_Sal integer
+    );
+    
+    -- job_history
+    
+    CREATE TABLE Job_history (
+    Start_date DATE,
+    End_date DATE,
+    Employee_ID INTEGER,
+    Department_ID INTEGER,
+    Job_ID VARCHAR(10) NOT NULL,
+    Location_ID INTEGER NOT NULL,
+    PRIMARY KEY (Start_date, Employee_ID),
+    FOREIGN KEY (Employee_ID) REFERENCES Employees(Employee_ID),
+    FOREIGN KEY (Job_ID) REFERENCES Jobs(Job_ID),
+    FOREIGN KEY (Location_ID) REFERENCES Locations(Location_ID)
+);
+
+    
+    
+    -- department
+    
+    CREATE TABLE Department (
+    Department_id INTEGER PRIMARY KEY,
+    Department_Name VARCHAR(30),
+    Location_ID INTEGER,
+    manager_id INTEGER,
+    FOREIGN KEY (Location_ID) REFERENCES Locations(Location_ID),
+    FOREIGN KEY (manager_id) REFERENCES Employees(Employee_ID)
+);
+    
+    -- regions
+    CREATE Table Region (
+    Region_id integer PRIMARY KEY, 
+    Region_name varchar(25)
+    );
+    
+    -- countries
+    CREATE TABLE Countries (
+    Country_ID char(2) PRIMARY KEY,
+    Country_Name varchar(40),
+    Region_id integer not null,
+    FOREIGN KEY (Region_id) REFERENCES Region(Region_id)
+    
+	);
+    
+    -- locations
+    CREATE TABLE Locations(
+    Location_ID integer PRIMARY KEY,
+    Street_Address varchar(25),
+    Postal_code varchar(12),
+    City varchar(30),
+    State_Province varchar(12),
+	 Country_ID CHAR(2) NOT NULL,
+	FOREIGN KEY (Country_ID) REFERENCES Countries(Country_ID)
+
+	);
+    
+    
+    
+    
+    
+    
+    
+    
+    
+	
